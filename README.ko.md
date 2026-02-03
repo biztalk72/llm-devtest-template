@@ -147,7 +147,7 @@ curl -X POST http://localhost:8000/generate \
 
 ### 개발 환경 (.env.dev)
 
-- `OLLAMA_MODEL=llama3:latest` - 빠른 범용 모델
+- `OLLAMA_MODEL=kimi2.5:latest` - Kimi 2.5 모델 (메인 LLM)
 - `API_DEBUG=true` - 디버그 모드 활성화
 - `LOG_LEVEL=DEBUG` - 상세 로깅
 
@@ -159,7 +159,7 @@ curl -X POST http://localhost:8000/generate \
 
 ### 프로덕션 환경 (.env.prod)
 
-- `OLLAMA_MODEL=llama3:latest` - 프로덕션 모델
+- `OLLAMA_MODEL=kimi2.5:latest` - Kimi 2.5 모델 (메인 LLM)
 - `API_DEBUG=false` - 디버그 모드 비활성화
 - `LOG_LEVEL=WARNING` - 최소 로깅
 
@@ -218,16 +218,17 @@ pip install -r requirements-dev.txt
 
 사용 사례별 권장 모델:
 
-- **개발**: `llama3:latest` (속도/품질 균형)
+- **개발**: `kimi2.5:latest` (메인 LLM, 고성능)
 - **테스트**: `deepseek-coder:latest` (빠르고 코드 중심)
-- **프로덕션**: `llama3:latest` 또는 `mistral:latest` (안정적)
+- **프로덕션**: `kimi2.5:latest` (메인 LLM, 최적화)
+- **대안**: `llama3:latest` 또는 `mistral:latest` (대체 옵션)
 
 새 모델 다운로드:
 
 ```bash
-ollama pull llama3:latest
+ollama pull kimi2.5:latest
 ollama pull deepseek-coder:latest
-ollama pull mistral:latest
+ollama pull llama3:latest
 ```
 
 ## 문제 해결

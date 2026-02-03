@@ -29,9 +29,9 @@ This is a Python template for building web applications and APIs with LLM integr
 ### Environment Strategy
 
 The codebase uses three environments with distinct configurations:
-- **dev** (`.env.dev.example`): Uses `llama3:latest`, debug enabled, verbose logging
+- **dev** (`.env.dev.example`): Uses `kimi2.5:latest` (main LLM), debug enabled, verbose logging
 - **test** (`.env.test.example`): Uses `deepseek-coder:latest`, test mode enabled
-- **prod** (`.env.prod.example`): Production settings with minimal logging
+- **prod** (`.env.prod.example`): Uses `kimi2.5:latest` (main LLM), production settings with minimal logging
 
 Always copy the appropriate `.env.*.example` to `.env` before running.
 
@@ -113,7 +113,7 @@ ruff check --fix src/ tests/
 ollama list
 
 # Pull required models
-ollama pull llama3:latest
+ollama pull kimi2.5:latest
 ollama pull deepseek-coder:latest
 
 # Test Ollama connectivity

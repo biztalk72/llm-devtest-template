@@ -11,7 +11,7 @@ class Settings(BaseSettings):
 
     # Ollama Configuration
     ollama_host: str = "http://localhost:11434"
-    ollama_model: str = "llama3:latest"
+    ollama_model: str = "kimi2.5:latest"
     ollama_timeout: int = 300
 
     # API Configuration

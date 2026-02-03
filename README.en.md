@@ -145,7 +145,7 @@ curl -X POST http://localhost:8000/generate \
 
 ### Development (.env.dev)
 
-- `OLLAMA_MODEL=llama3:latest` - Fast, general-purpose model
+- `OLLAMA_MODEL=kimi2.5:latest` - Kimi 2.5 model (main LLM)
 - `API_DEBUG=true` - Enable debug mode
 - `LOG_LEVEL=DEBUG` - Verbose logging
 
@@ -157,7 +157,7 @@ curl -X POST http://localhost:8000/generate \
 
 ### Production (.env.prod)
 
-- `OLLAMA_MODEL=llama3:latest` - Production model
+- `OLLAMA_MODEL=kimi2.5:latest` - Kimi 2.5 model (main LLM)
 - `API_DEBUG=false` - Disable debug mode
 - `LOG_LEVEL=WARNING` - Minimal logging
 
@@ -216,16 +216,17 @@ pip install -r requirements-dev.txt
 
 Recommended models for different use cases:
 
-- **Development**: `llama3:latest` (balanced speed/quality)
+- **Development**: `kimi2.5:latest` (main LLM, high performance)
 - **Testing**: `deepseek-coder:latest` (fast, code-focused)
-- **Production**: `llama3:latest` or `mistral:latest` (stable)
+- **Production**: `kimi2.5:latest` (main LLM, optimized)
+- **Alternative**: `llama3:latest` or `mistral:latest` (fallback options)
 
 Pull new models:
 
 ```bash
-ollama pull llama3:latest
+ollama pull kimi2.5:latest
 ollama pull deepseek-coder:latest
-ollama pull mistral:latest
+ollama pull llama3:latest
 ```
 
 ## Troubleshooting
