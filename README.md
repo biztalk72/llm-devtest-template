@@ -1,273 +1,32 @@
 # LLM DevTest Template
 
+[English](README.en.md) | [한국어](README.ko.md)
+
 A production-ready template for building Python web applications and APIs with LLM integration using Ollama. Includes complete dev/test environment setup with CI/CD automation via GitHub Actions.
 
-## Features
+Ollama를 사용한 LLM 통합 Python 웹 애플리케이션 및 API 구축을 위한 프로덕션 준비 템플릿입니다. GitHub Actions를 통한 CI/CD 자동화와 함께 완전한 개발/테스트 환경 설정이 포함되어 있습니다.
 
-- 🤖 **Ollama Integration**: Ready-to-use LLM client with async support
-- 🚀 **FastAPI Backend**: Modern, fast API framework with automatic docs
-- 🧪 **Complete Testing**: Pytest setup with coverage reporting
-- 🔄 **CI/CD Pipeline**: Automated testing and deployment via GitHub Actions
-- 🌍 **Multi-Environment**: Separate configurations for dev/test/prod
-- 🔐 **GPG Signing**: Commits automatically signed for security
-- 📊 **Code Quality**: Black, Ruff, and MyPy configured
+---
 
-## Prerequisites
+## Quick Start / 빠른 시작
 
-- Python 3.10+
-- [Ollama](https://ollama.ai) installed and running
-- Git with GPG configured (for commit signing)
+### English
+See [README.en.md](README.en.md) for complete English documentation.
 
-## Quick Start
+### 한국어
+전체 한국어 문서는 [README.ko.md](README.ko.md)를 참조하세요.
 
-### 1. Clone and Setup
+---
 
-```bash
-git clone <your-repo-url>
-cd llm-devtest-template
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements-dev.txt
-```
+## Features / 주요 기능
 
-### 2. Configure Environment
-
-Copy the appropriate environment file:
-
-```bash
-# For development
-cp .env.dev.example .env
-
-# For testing
-cp .env.test.example .env
-
-# For production
-cp .env.prod.example .env
-```
-
-Edit `.env` with your specific settings.
-
-### 3. Run the Application
-
-```bash
-# Development mode (with auto-reload)
-python src/main.py
-
-# Or using uvicorn directly
-uvicorn src.main:app --reload
-```
-
-API will be available at `http://localhost:8000`
-- API Docs: `http://localhost:8000/docs`
-- Alternative Docs: `http://localhost:8000/redoc`
-
-### 4. Run Tests
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=src --cov-report=html
-
-# Run specific test file
-pytest tests/test_main.py -v
-```
-
-## Project Structure
-
-```
-llm-devtest-template/
-├── .github/
-│   └── workflows/          # GitHub Actions CI/CD
-│       ├── ci.yml         # Automated testing
-│       ├── deploy-dev.yml # Dev deployment
-│       └── deploy-test.yml# Test deployment
-├── src/
-│   ├── __init__.py
-│   ├── main.py            # FastAPI application
-│   ├── config.py          # Configuration management
-│   └── ollama_client.py   # Ollama LLM integration
-├── tests/
-│   ├── __init__.py
-│   ├── conftest.py        # Pytest fixtures
-│   ├── test_config.py
-│   ├── test_main.py
-│   └── test_ollama_client.py
-├── .env.*.example         # Environment templates
-├── .gitignore
-├── pyproject.toml         # Project configuration
-├── requirements.txt       # Production dependencies
-└── requirements-dev.txt   # Development dependencies
-```
-
-## API Endpoints
-
-### Core Endpoints
-
-- `GET /` - Root endpoint with service info
-- `GET /health` - Health check (includes Ollama status)
-- `GET /models` - List available Ollama models
-
-### LLM Endpoints
-
-- `POST /generate` - Generate text from a prompt
-
-**Example Request:**
-
-```bash
-curl -X POST http://localhost:8000/generate \
-  -H "Content-Type: application/json" \
-  -d '{
-    "prompt": "Explain quantum computing in simple terms",
-    "temperature": 0.7,
-    "stream": false
-  }'
-```
-
-## Branch Strategy
-
-- `main` - Production-ready code (protected)
-- `dev` - Development branch (auto-deploys to dev environment)
-- `test` - Testing branch (auto-deploys to test environment)
-
-### Workflow
-
-1. Create feature branch from `dev`
-2. Make changes and commit (will be GPG signed)
-3. Push and create PR to `dev`
-4. CI runs automatically (tests, linting, type checking)
-5. After merge to `dev`, auto-deploy to dev environment
-6. Merge to `test` for testing environment
-7. Merge to `main` for production
-
-## Environment Variables
-
-### Development (.env.dev)
-
-- `OLLAMA_MODEL=llama3:latest` - Fast, general-purpose model
-- `API_DEBUG=true` - Enable debug mode
-- `LOG_LEVEL=DEBUG` - Verbose logging
-
-### Test (.env.test)
-
-- `OLLAMA_MODEL=deepseek-coder:latest` - Optimized for testing
-- `TEST_MODE=true` - Enable test-specific features
-- `LOG_LEVEL=INFO` - Standard logging
-
-### Production (.env.prod)
-
-- `OLLAMA_MODEL=llama3:latest` - Production model
-- `API_DEBUG=false` - Disable debug mode
-- `LOG_LEVEL=WARNING` - Minimal logging
-
-## Development
-
-### Code Quality
-
-```bash
-# Format code
-black src/ tests/
-
-# Lint code
-ruff check src/ tests/
-
-# Type check
-mypy src/
-
-# Run all checks
-black src/ tests/ && ruff check src/ tests/ && mypy src/
-```
-
-### Adding Dependencies
-
-```bash
-# Add to requirements.txt for production
-echo "package-name>=1.0.0" >> requirements.txt
-
-# Add to requirements-dev.txt for development only
-echo "package-name>=1.0.0" >> requirements-dev.txt
-
-# Install
-pip install -r requirements-dev.txt
-```
-
-## CI/CD
-
-### GitHub Actions Workflows
-
-1. **CI** (`ci.yml`) - Runs on every push/PR
-   - Tests across Python 3.10, 3.11, 3.12
-   - Linting with Ruff
-   - Format checking with Black
-   - Type checking with MyPy
-   - Coverage reporting
-
-2. **Deploy to Dev** (`deploy-dev.yml`) - Runs on push to `dev`
-   - Runs tests
-   - Deploys to dev environment
-
-3. **Deploy to Test** (`deploy-test.yml`) - Runs on push to `test`
-   - Runs full test suite with coverage
-   - Integration tests
-   - Deploys to test environment
-
-## Ollama Models
-
-Recommended models for different use cases:
-
-- **Development**: `llama3:latest` (balanced speed/quality)
-- **Testing**: `deepseek-coder:latest` (fast, code-focused)
-- **Production**: `llama3:latest` or `mistral:latest` (stable)
-
-Pull new models:
-
-```bash
-ollama pull llama3:latest
-ollama pull deepseek-coder:latest
-ollama pull mistral:latest
-```
-
-## Troubleshooting
-
-### Ollama Not Connected
-
-```bash
-# Check if Ollama is running
-ollama list
-
-# Start Ollama (if needed)
-ollama serve
-```
-
-### Import Errors
-
-```bash
-# Reinstall dependencies
-pip install -r requirements-dev.txt --force-reinstall
-```
-
-### GPG Signing Issues
-
-```bash
-# Verify GPG key
-git config --global user.signingkey
-
-# Test GPG
-echo "test" | gpg --clearsign
-```
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
-
-## License
-
-MIT License - see LICENSE file for details.
-
-## Author
-
-Brian (re3539@outlook.com)
+- 🤖 **Ollama Integration** / **Ollama 통합**: Ready-to-use LLM client with async support / 비동기 지원을 갖춘 LLM 클라이언트
+- 🚀 **FastAPI Backend** / **FastAPI 백엔드**: Modern, fast API framework with automatic docs / 자동 문서화를 지원하는 최신 고속 API 프레임워크
+- 🧪 **Complete Testing** / **완전한 테스트**: Pytest setup with coverage reporting / 커버리지 리포트를 포함한 Pytest 설정
+- 🔄 **CI/CD Pipeline** / **CI/CD 파이프라인**: Automated testing and deployment via GitHub Actions / GitHub Actions를 통한 자동화된 테스트 및 배포
+- 🌍 **Multi-Environment** / **다중 환경**: Separate configurations for dev/test/prod / dev/test/prod 환경별 설정
+- 🔐 **GPG Signing** / **GPG 서명**: Commits automatically signed for security / 보안을 위한 자동 커밋 서명
+- 📊 **Code Quality** / **코드 품질**: Black, Ruff, and MyPy configured / Black, Ruff, MyPy 구성
 
 ---
 
