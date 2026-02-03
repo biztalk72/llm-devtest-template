@@ -1,0 +1,17 @@
+# Core dependencies
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# Ollama client
+ollama>=0.1.0
+
+# Web framework (FastAPI)
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+
+# HTTP client
+httpx>=0.26.0
+
+# Utilities
+python-multipart>=0.0.6
